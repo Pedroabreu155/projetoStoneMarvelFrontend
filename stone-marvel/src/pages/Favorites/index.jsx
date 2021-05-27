@@ -1,7 +1,12 @@
 import React from 'react'
 
+import Navbar from '../../components/Navbar'
+
 export default function Favorites(){
   return(
-    <h1>Favorites Page</h1>
+    <>
+      <Navbar/>
+      <h1>Favorites Page</h1>
+    </>
   )
 }

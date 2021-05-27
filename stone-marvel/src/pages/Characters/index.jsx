@@ -1,7 +1,12 @@
 import React from 'react'
 
+import Navbar from '../../components/Navbar'
+
 export default function Characters(){
   return(
-    <h1>Characters</h1>
+    <>
+    <Navbar/>
+    <h1>Personagens</h1>
+    </>
   )
 }
