@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import './Home.css'
 import { Form, Button } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
+import { logout } from '../../services/Auth/auth'
 
 export default function Home(){
 
@@ -28,17 +29,22 @@ export default function Home(){
     const email = userEmail
     const password = userPassword
 
-    if(email === 'pedro@email.com' && password === 'abcd123'){
+    if(email !== 'pedro@email.com' || password !== 'abcd123' ){
+      setCredentialErrors('Senha ou Usuário inválido!')
+    } else{
       console.log('logado')
       clearErrors()
       clearInputs()
       history.push('/dashboard')
-    } else{
-      setCredentialErrors('Senha ou usuário inválido!')
     }
 
 
   }
+
+  useEffect(() => {
+    logout()
+  }, []) //this effect clear token from session storage, so the user cant access routes by typing on bar
+         //only logging again
 
   return(
     <>
@@ -55,7 +61,7 @@ export default function Home(){
             onChange={event => {setUserEmail(event.target.value);}} 
             type="email" placeholder="Digite seu Email"/>
           </Form.Group>
-
+          <br/>
           <Form.Group controlId="Senha">
             <Form.Label>Senha</Form.Label>
             <Form.Control

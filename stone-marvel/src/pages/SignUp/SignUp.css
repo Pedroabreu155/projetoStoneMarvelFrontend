@@ -1,0 +1,53 @@
+.first-box-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.second-box-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.formgroup{
+  margin-bottom: 1rem;
+}
+
+.subtitle-form{
+  margin-bottom: 2rem;
+}
+
+.btn-form-div{
+  display: flex;
+  justify-content: center;
+}
+
+.login-btn{
+  padding: 0.5rem 3.5rem;
+  width: 100%;
+}
+
+.signupLinkWrapper{
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+
+}
+
+.signupLink{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(141, 21, 21);
+  text-decoration: none;
+}
+
+.error{
+  color: red;
+}
