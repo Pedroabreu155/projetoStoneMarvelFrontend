@@ -32,7 +32,7 @@ export default function Routes() {
           <Route path="/" exact component={Home}/>
           <Route path="/signup" exact component={SignUp}/>
           <Route path="/dashboard" exact component={Dashboard}/>
-          <PrivateRoute path="/characters" exact component={Characters}/>
+          <Route path="/characters" exact component={Characters}/>
           <Route path="/comics" exact component={Comics}/>
           <PrivateRoute path="/profile" exact component={Profile}/>
           <PrivateRoute path="/favorites" exact component={Favorites}/>
