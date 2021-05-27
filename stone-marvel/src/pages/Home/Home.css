@@ -43,3 +43,7 @@
   color: rgb(141, 21, 21);
   text-decoration: none;
 }
+
+.error{
+  color: red;
+}

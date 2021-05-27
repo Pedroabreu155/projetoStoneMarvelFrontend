@@ -1,25 +1,43 @@
 import React, { useState } from 'react'
 
 import './Home.css'
-import { Form, Button} from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Form, Button } from 'react-bootstrap'
+import { Link, useHistory } from 'react-router-dom'
 
 export default function Home(){
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [email, setEmail] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordError, setPasswordError] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+  const [userPassword, setUserPassword] = useState('')
+  const [credentialsErrors, setCredentialErrors] = useState('')
+
+  let history = useHistory()
 
   function clearInputs(){
-    setEmail('')
-    setPassword('')
+    setUserEmail('')
+    setUserPassword('')
   }
 
   function clearErrors(){
-    setEmailError('')
-    setPasswordError('')
+    setCredentialErrors('')
+  }
+
+  const handleSignIn = async (e) => {
+
+    e.preventDefault()
+
+    const email = userEmail
+    const password = userPassword
+
+    if(email === 'pedro@email.com' && password === 'abcd123'){
+      console.log('logado')
+      clearErrors()
+      clearInputs()
+      history.push('/dashboard')
+    } else{
+      setCredentialErrors('Senha ou usuário inválido!')
+    }
+
+
   }
 
   return(
@@ -27,29 +45,28 @@ export default function Home(){
     <br/>
     <div className="container first-box-form">
       <br/>
-        <Form>
+        <Form onSubmit={handleSignIn}>
           <h4 className="subtitle-form">Faça Login para acessar o App</h4>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
             required
-            value={email}
-            onChange={event => setEmail(event.target.value)} 
+            value={userEmail}
+            onChange={event => {setUserEmail(event.target.value);}} 
             type="email" placeholder="Digite seu Email"/>
-            <p>{emailError}</p>
           </Form.Group>
 
           <Form.Group controlId="Senha">
             <Form.Label>Senha</Form.Label>
             <Form.Control
             required
-            value={password}
-            onChange={event => setPassword(event.target.value)}
+            value={userPassword}
+            onChange={event => setUserPassword(event.target.value)}
             type="password" placeholder="Digite sua Senha" />
-            <p>{passwordError}</p>
+            <p className="error">{credentialsErrors}</p>
           </Form.Group>
           <div className="btn-form-div">
-            <Button className="login-btn" variant="dark">Login</Button>
+            <Button type="submit" className="login-btn" variant="dark">Login</Button>
           </div>
           <div className="signupLinkWrapper">
             <Link className="signupLink" to="/signup">Criar conta grátis</Link>
