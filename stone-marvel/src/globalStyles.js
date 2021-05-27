@@ -1,13 +1,22 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
-  body {
+
+  *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: 0
+  }
+
+  body, html {
+    width: 100vw;
+    height: 100vh;
     font-family: Helvetica, Sans-Serif;
     background-color: rgb(171, 171, 171);
-    color: black
+    color: black;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
   }
 `
 export default GlobalStyle

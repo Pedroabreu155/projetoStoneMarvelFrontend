@@ -81,7 +81,7 @@ export default function SignUp(){
             <Button type="submit" className="login-btn" variant="dark">Criar Usuário</Button>
           </div>
           <div className="signupLinkWrapper">
-            <Link className="signupLink" to="/signup">Entrar com minha conta</Link>
+            <Link className="signupLink" to="/">Entrar com minha conta</Link>
           </div>
         </Form>
       </div>

@@ -31,7 +31,7 @@ export default function Routes() {
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/signup" exact component={SignUp}/>
-          <PrivateRoute path="/dashboard" exact component={Dashboard}/>
+          <Route path="/dashboard" exact component={Dashboard}/>
           <PrivateRoute path="/characters" exact component={Characters}/>
           <PrivateRoute path="/comics" exact component={Comics}/>
           <PrivateRoute path="/profile" exact component={Profile}/>
