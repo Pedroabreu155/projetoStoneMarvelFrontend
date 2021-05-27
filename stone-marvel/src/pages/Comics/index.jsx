@@ -7,7 +7,6 @@ export default function Comics(){
   return(
     <>
     <Navbar/>
-    <h1>Comics</h1>
     </>
   )
 }

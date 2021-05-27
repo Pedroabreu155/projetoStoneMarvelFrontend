@@ -3,15 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-}
-
-.second-box-form{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
 }
 
 .subtitle-form{
@@ -21,6 +12,7 @@
 .btn-form-div{
   display: flex;
   justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .login-btn{
@@ -35,6 +27,16 @@
   align-items: center;
   margin-top: 1rem;
 
+  background-color: gray;
+  padding: 0.5rem;
+  border-radius: 10px;
+
+  transition: 0.05s;
+
+}
+
+.signupLinkWrapper:hover{
+  border: 3px solid black;
 }
 
 .signupLink{
@@ -42,6 +44,10 @@
   font-weight: bold;
   color: rgb(141, 21, 21);
   text-decoration: none;
+}
+
+.signupLink:hover{
+  color: rgb(141, 21, 21);
 }
 
 .error{
