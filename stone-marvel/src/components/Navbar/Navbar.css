@@ -1,8 +1,6 @@
-.navbar{
-  /* width: 100%; */
-  background-color: rgba(190, 41, 41, 0.603);
-
+.nav-icon{
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
 }

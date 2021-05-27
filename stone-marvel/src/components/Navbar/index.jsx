@@ -1,26 +1,33 @@
 import React from 'react'
-import "./Navbar.css"
+
+import { BsFillPersonFill, BsFillStarFill, BsBookHalf } from 'react-icons/bs'
+import { GiBatMask } from 'react-icons/gi'
+
+import * as ReactBootstrap from 'react-bootstrap'
+import './Navbar.css'
 
 export default function Navbar() {
   return (
-    <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <ReactBootstrap.Navbar variant="dark" bg="dark" expand="lg">
+      <ReactBootstrap.Container>
+        <ReactBootstrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <ReactBootstrap.Navbar.Collapse id="basic-navbar-nav">
+          <ReactBootstrap.Nav className="me-auto customNavbar">
+            <ReactBootstrap.Nav.Link>
+              Comics<div className="nav-icon"><BsBookHalf/></div>
+            </ReactBootstrap.Nav.Link>
+            <ReactBootstrap.Nav.Link href="/characters">
+              Personagens<div className="nav-icon"><GiBatMask/></div>
+            </ReactBootstrap.Nav.Link>
+            <ReactBootstrap.Nav.Link href="/favorites">
+              Favoritos<div className="nav-icon"><BsFillStarFill/></div>
+            </ReactBootstrap.Nav.Link>
+            <ReactBootstrap.Nav.Link href="/profile">
+              Meu Perfil<div className="nav-icon"><BsFillPersonFill/></div>
+            </ReactBootstrap.Nav.Link>
+          </ReactBootstrap.Nav>
+        </ReactBootstrap.Navbar.Collapse>
+      </ReactBootstrap.Container>
+    </ReactBootstrap.Navbar>
   )
 }
