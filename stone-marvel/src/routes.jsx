@@ -34,8 +34,8 @@ export default function Routes() {
           <Route path="/dashboard" exact component={Dashboard}/>
           <Route path="/characters" exact component={Characters}/>
           <Route path="/comics" exact component={Comics}/>
-          <PrivateRoute path="/profile" exact component={Profile}/>
-          <PrivateRoute path="/favorites" exact component={Favorites}/>
+          <Route path="/profile" exact component={Profile}/>
+          <Route path="/favorites" exact component={Favorites}/>
         </Switch>
     </div>
   )
