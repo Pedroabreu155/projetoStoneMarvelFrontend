@@ -54,13 +54,12 @@ export default function Characters(){
           </div>
           <br/>
           <Table className="text-center" striped bordered hover variant="dark">
-            <thead>
+          <thead>
               <tr>
-                <th>Marca</th>
-                <th>Produto</th>
-                <th>Preço</th>
-                <th>Armazenamento</th>
-                <th>Tecnologia 5G</th>
+                <th>Personagem</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Nº de Quadrinhos</th>
                 <th>Opções</th>
               </tr>
             </thead>

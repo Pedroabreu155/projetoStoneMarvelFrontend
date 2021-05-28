@@ -26,7 +26,7 @@ Para utilizá-lo basta baixar a pasta .zip ou clonar o repositório em sua máqu
    - Entre no diretório /stone-marvel e execute o comando __npm install__, depois rode o comando __npm start__
 
 
-#### Qualquer dúvida me chame nas  reder sociais, happy hacking  :top: ####
+#### Qualquer dúvida me chame nas redes sociais, happy hacking  :top: ####
 
 
 
