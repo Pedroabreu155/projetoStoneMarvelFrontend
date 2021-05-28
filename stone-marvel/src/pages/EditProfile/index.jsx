@@ -7,8 +7,8 @@ import Navbar from '../../components/Navbar'
 
 export default function EditProfile(){
 
-  const [userName, setUserName] = useState('')
-  const [userEmail, setUserEmail] = useState('')
+  const [userName, setUserName] = useState('Pedro')
+  const [userEmail, setUserEmail] = useState('pedro@email.com')
   const [userPassword, setUserPassword] = useState('')
   const [credentialsErrors, setCredentialErrors] = useState('')
 
@@ -50,7 +50,7 @@ export default function EditProfile(){
     <div className="container first-box-form">
       <br/>
         <Form onSubmit={handleChangeCredentials}>
-          <h4 className="subtitle-form">Veja e Edite seus dados</h4>
+          <h4 className="subtitle-form">Edite os dados que quiser!</h4>
           <Form.Group controlId="formBasicText">
             <Form.Label>Nome</Form.Label>
             <Form.Control
@@ -75,7 +75,7 @@ export default function EditProfile(){
               required
               value={userPassword}
               onChange={event => setUserPassword(event.target.value)}
-              type="password" placeholder="Digite sua Senha" />
+              type="password" placeholder="Digite sua nova Senha" />
             <p className="error">{credentialsErrors}</p>
           </Form.Group>
           <div className="btn-form-div">

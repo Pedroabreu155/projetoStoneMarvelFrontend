@@ -95,7 +95,8 @@ export default function Characters(){
                   <td>{comic.pageCount === 0 ? "Sem páginas definidas" : `${comic.pageCount} páginas`}</td>
                   <td>Iron Man</td>
                   <td>
-                    <Button onClick={() => loadOneComic(comic.id)} className="mr-2" size="sm" variant="info">Ver</Button>
+                    <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adcionar as Favoritas</Button>
+                    <Button onClick={() => loadOneComic(comic.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
                         <Modal.Title>{comicModel.title}</Modal.Title>

@@ -13,3 +13,9 @@
 .modalLink:hover{
   color: black;
 }
+
+.optButton{
+  color: black;
+  font-weight: bold;
+  text-align: left;
+}

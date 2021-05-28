@@ -2,6 +2,7 @@ import React from 'react'
 
 import { BsFillPersonFill, BsFillStarFill, BsBookHalf } from 'react-icons/bs'
 import { GiBatMask } from 'react-icons/gi'
+import { RiDashboardLine } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 
 import * as ReactBootstrap from 'react-bootstrap'
@@ -14,6 +15,9 @@ export default function Navbar() {
         <ReactBootstrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
         <ReactBootstrap.Navbar.Collapse id="basic-navbar-nav">
           <ReactBootstrap.Nav className="me-auto customNavbar">
+            <ReactBootstrap.Navbar.Text>
+              <Link className="navbar-link-custom" to="/dashboard"><div className="nav-option">Dashboard<div className="nav-option-img"><RiDashboardLine/></div></div></Link>
+            </ReactBootstrap.Navbar.Text>
             <ReactBootstrap.Navbar.Text>
               <Link className="navbar-link-custom" to="/comics"><div className="nav-option">Comics<div className="nav-option-img"><BsBookHalf/></div></div></Link>
             </ReactBootstrap.Navbar.Text>

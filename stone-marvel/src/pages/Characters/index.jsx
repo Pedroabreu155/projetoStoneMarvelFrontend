@@ -96,7 +96,9 @@ export default function Characters(){
                   <td>{character.description === "" ? "Personagem sem descrição..." : character.description}</td>
                   <td>{character.comics.available}</td>
                   <td>
-                    <Button onClick={() => loadOneCharacter(character.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
+                    <Button className="mb-3 font-weight-bold" size="sm" variant="danger">Ver comics</Button>
+                    <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adcionar aos Favoritos</Button>
+                    <Button onClick={() => loadOneCharacter(character.id)} size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
                         <Modal.Title>{characterModel.name}</Modal.Title>
@@ -109,7 +111,8 @@ export default function Characters(){
                         <Button variant="warning">
                           <a 
                             className="modalLink" 
-                            target="_blank" 
+                            target="_blank"
+                            rel="noreferrer" 
                             href={characterModel.urls[0].url === "" ? "https://www.marvel.com/characters" : characterModel.urls[0].url}>
                             Ver na Wiki
                           </a>

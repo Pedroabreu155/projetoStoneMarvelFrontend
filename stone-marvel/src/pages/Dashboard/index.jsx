@@ -25,7 +25,7 @@ export default function Dashboard(){
           <Card className="dashboard-card" style={{ width: '20rem', height: '20rem' }}>
             <div className="card-content">
               <Tittle>PERSONAGENS</Tittle>
-              <Text>Veja os grandes heróis da Marvel e aprenda sobre eles</Text>
+              <Text>Veja os grandes heróis e vilões da Marvel e aprenda sobre eles</Text>
               <img className="cardImageHeroes" src="/heroes.png" alt="heroes"/>
             </div>
           </Card>
