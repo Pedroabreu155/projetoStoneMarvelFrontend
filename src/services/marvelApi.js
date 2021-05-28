@@ -9,7 +9,7 @@ const ts = Number(new Date()) // timestamp is required on params for request in 
 const hash = md5(ts + privateKey + publicKey) // hash is required on params for request in marvel api
 
 const marvelApi = axios.create({
-  baseURL: "http://gateway.marvel.com/v1/public",
+  baseURL: "https://gateway.marvel.com/v1/public",
   params: {
     ts: ts,
     apikey: publicKey,
