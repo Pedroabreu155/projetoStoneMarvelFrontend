@@ -7,9 +7,14 @@ import Dashboard from './pages/Dashboard'
 import Characters from './pages/Characters'
 import Comics from './pages/Comics'
 import Profile from './pages/Profile'
+import EditProfile from './pages/EditProfile'
 import Favorites from './pages/Favorites'
+import FavCharacters from './pages/FavCharacters'
+import FavComics from './pages/FavComics'
 
 import { isAuthenticated } from './services/Auth/auth'
+
+
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -35,7 +40,10 @@ export default function Routes() {
           <Route path="/characters" exact component={Characters}/>
           <Route path="/comics" exact component={Comics}/>
           <Route path="/profile" exact component={Profile}/>
+          <Route path="/editprofile" exact component={EditProfile}/>
           <Route path="/favorites" exact component={Favorites}/>
+          <Route path="/favcharacters" exact component={FavCharacters}/>
+          <Route path="/favcomics" exact component={FavComics}/>
         </Switch>
     </div>
   )

@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from 'react'
 
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
-export default function Characters(){
+export default function FavCharacters(){
 
   const [allProducts, setAllProducts] = useState([])
   const [productModel, setProductModel] = useState()
@@ -36,30 +36,25 @@ export default function Characters(){
     setAllProducts(response)
   }
 
-  const history = useHistory()
-
-  function goHome(){
-    history.push('/')
-  }
-
   return(
     <>
       <Navbar/>
       <div className="container manage-products">
           <br/>
-          <h1>Lista de Personagens</h1>
+          <h1>Personagens Preferidos</h1>
           <br/>
           <div className="page-header">
-            <Link to="/dashboard"><Button onClick={goHome} className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>
+            <Link to="/favorites"><Button className="add-productBtn" variant="warning">Voltar para Meus Favoritos</Button></Link>
           </div>
           <br/>
           <Table className="text-center" striped bordered hover variant="dark">
             <thead>
               <tr>
-                <th>Personagem</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Nº de Quadrinhos</th>
+                <th>Marca</th>
+                <th>Produto</th>
+                <th>Preço</th>
+                <th>Armazenamento</th>
+                <th>Tecnologia 5G</th>
                 <th>Opções</th>
               </tr>
             </thead>

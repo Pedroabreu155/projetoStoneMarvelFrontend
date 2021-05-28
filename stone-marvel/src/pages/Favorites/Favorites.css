@@ -1,0 +1,38 @@
+
+.dashboard-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.dashboard-card{
+  margin-top: 4rem;
+  display: inline-block;
+  background-color: gray;
+}
+
+.dashboard-card:hover{
+  border: 3px black solid;
+}
+
+.card-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem;
+}
+
+.card-link{
+  text-decoration: none;
+  margin: 0 2rem;
+}
+
+.cardImageComics{
+  width: 10rem;
+}
+
+.cardImageHeroes{
+  width: 10rem;
+}

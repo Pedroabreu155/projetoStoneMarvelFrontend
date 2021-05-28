@@ -1,0 +1,28 @@
+
+.dashboard-wrapper-profile{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.dashboard-card-profile{
+  margin-top: 4rem;
+  display: inline-block;
+  background-color: gray;
+}
+
+.card-content-profile{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 1rem;
+
+  margin-left: 2rem;
+}
+
+.editProfileBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
