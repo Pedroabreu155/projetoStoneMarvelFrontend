@@ -12,7 +12,7 @@ const marvelApi = axios.create({
   baseURL: "http://gateway.marvel.com/v1/public",
   params: {
     ts: ts,
-    apiKey: publicKey,
+    apikey: publicKey,
     hash: hash
   }
 })

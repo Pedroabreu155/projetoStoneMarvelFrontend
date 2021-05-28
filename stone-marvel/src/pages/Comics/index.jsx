@@ -4,6 +4,8 @@ import { useHistory, Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
+import marvelApi from '../../services/marvelApi'
+
 export default function Characters(){
 
   const [allProducts, setAllProducts] = useState([])
@@ -28,6 +30,7 @@ export default function Characters(){
 
   useEffect(() => {
     loadTableWithData()
+    marvelApi.get('/comics').then(response => console.log(response.data.data.results)).catch(err => console.log(err))
   }, [])
 
   async function loadTableWithData(){
