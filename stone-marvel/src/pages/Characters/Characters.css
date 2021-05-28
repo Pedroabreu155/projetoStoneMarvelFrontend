@@ -3,6 +3,13 @@
   height: 60px;
 }
 
-.pageTable{
-  margin-bottom: 5rem;
+.modalLink{
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: black;
+}
+
+.modalLink:hover{
+  color: black;
 }

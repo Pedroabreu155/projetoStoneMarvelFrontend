@@ -6,10 +6,12 @@ import Navbar from '../../components/Navbar'
 
 import marvelApi from '../../services/marvelApi'
 
+import './Comics.css'
+
 export default function Characters(){
 
-  const [allProducts, setAllProducts] = useState([])
-  const [productModel, setProductModel] = useState()
+  const [allComics, setAllComics] = useState([])
+  const [comicModel, setComicModel] = useState({})
 
   const [showModal, setShowModal] = useState(false);
 
@@ -20,23 +22,36 @@ export default function Characters(){
     setShowModal(true)
   }
 
-  async function loadOneProduct(id){
-    const response = ['1234']
-    
-    setProductModel(response)
-
-    handleShowModal()
-  }
-
   useEffect(() => {
     loadTableWithData()
-    marvelApi.get('/comics').then(response => console.log(response.data.data.results)).catch(err => console.log(err))
-  }, [])
+    loadOneComicOnPageLoad(82970)//this functions loads props and save at comicModel state
+  }, [])                         // instead of this the page brokes cause image and props is not defined yet
 
   async function loadTableWithData(){
-    const response = []
-    // console.log(response)
-    setAllProducts(response)
+    const response = await marvelApi.get('/comics')
+    const results = response.data.data.results
+    // console.log(results)
+    setAllComics(results)
+  }
+
+  async function loadOneComic(id){
+
+    const response = await marvelApi.get(`/comics/${id}`)
+    const result = response.data.data.results[0]
+    setComicModel(result)
+
+    setTimeout(() => {
+      handleShowModal()
+    }, 1)
+
+  }
+
+  async function loadOneComicOnPageLoad(id){
+
+    const response = await marvelApi.get(`/comics/${id}`)
+    const result = response.data.data.results[0]
+    setComicModel(result)
+
   }
 
   const history = useHistory()
@@ -59,32 +74,37 @@ export default function Characters(){
           <Table className="text-center" striped bordered hover variant="dark">
           <thead>
               <tr>
-                <th>Personagem</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Nº de Quadrinhos</th>
+                <th>HQ</th>
+                <th>Título</th>
+                <th>Páginas</th>
+                <th>Personagens</th>
                 <th>Opções</th>
               </tr>
             </thead>
             <tbody>
-              {allProducts.map(product => (
+              {allComics.map(comic => (
                 <>
-                <tr key={product}>
-                  <td>{product}</td>
-                  <td>{product}</td>
-                  <td>R$ {product}</td>
-                  <td>{product} GB</td>
+                <tr key={comic.id}>
                   <td>
-                    <Button onClick={() => loadOneProduct(product)} className="mr-2" size="sm" variant="info">Ver</Button>
+                  <img 
+                    className="comicImage" 
+                    src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} 
+                    alt="characterImage"/>
+                  </td>
+                  <td>{comic.title}</td>
+                  <td>{comic.pageCount === 0 ? "Sem páginas definidas" : `${comic.pageCount} páginas`}</td>
+                  <td>Iron Man</td>
+                  <td>
+                    <Button onClick={() => loadOneComic(comic.id)} className="mr-2" size="sm" variant="info">Ver</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
-                        <Modal.Title>{productModel}</Modal.Title>
+                        <Modal.Title>{comicModel.title}</Modal.Title>
                       </Modal.Header>
 
                       <Modal.Body>
-                        <img className="modal-image" src={productModel} alt="aaa"/>
-                        <h2>{productModel}</h2>
-                        <h2>R$ {productModel}</h2>
+                        <img className="modal-image" src={`${comicModel.thumbnail.path}.${comicModel.thumbnail.extension}`}  alt="modalImage"/>
+                        <h2 className="modalFirstText">Personagens: {comicModel.characters.available === 0 ? "Sem registros!" : comicModel.characters.available}</h2>
+                        <h2>Preço de Lançamento: {comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `$${comicModel.prices[0].price}`}</h2>
                       </Modal.Body>
 
                       <Modal.Footer>
@@ -100,6 +120,7 @@ export default function Characters(){
             </tbody>
           </Table>
       </div>
+      <br/>
     </>
   )
 }
