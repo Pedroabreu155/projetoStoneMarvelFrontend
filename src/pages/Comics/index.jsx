@@ -8,7 +8,7 @@ import marvelApi from '../../services/marvelApi'
 
 import './Comics.css'
 
-export default function Characters(){
+export default function Comics(){
 
   const [allComics, setAllComics] = useState([])
   const [comicModel, setComicModel] = useState({})
@@ -93,9 +93,9 @@ export default function Characters(){
                   </td>
                   <td>{comic.title}</td>
                   <td>{comic.pageCount === 0 ? "Sem páginas definidas" : `${comic.pageCount} páginas`}</td>
-                  <td>Iron Man</td>
+                  <td>{comic.characters.available}</td>
                   <td>
-                    <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adcionar as Favoritas</Button>
+                    <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adicionar as Favoritas</Button>
                     <Button onClick={() => loadOneComic(comic.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>

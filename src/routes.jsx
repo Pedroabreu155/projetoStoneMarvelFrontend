@@ -11,6 +11,8 @@ import EditProfile from './pages/EditProfile'
 import Favorites from './pages/Favorites'
 import FavCharacters from './pages/FavCharacters'
 import FavComics from './pages/FavComics'
+import CustomComics from './pages/CustomComics'
+import CustomCharacters from './pages/CustomCharacters'
 
 import { isAuthenticated } from './services/Auth/auth'
 
@@ -44,6 +46,8 @@ export default function Routes() {
           <Route path="/favorites" exact component={Favorites}/>
           <Route path="/favcharacters" exact component={FavCharacters}/>
           <Route path="/favcomics" exact component={FavComics}/>
+          <Route path="/custom-comics" exact component={CustomComics}/>
+          <Route path="/custom-characters" exact component={CustomCharacters}/>
         </Switch>
     </div>
   )

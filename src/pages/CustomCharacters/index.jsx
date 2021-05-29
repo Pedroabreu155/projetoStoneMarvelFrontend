@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react'
 
-import { useHistory, Link, useParams } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
@@ -8,7 +8,7 @@ import marvelApi from '../../services/marvelApi'
 
 import './Characters.css'
 
-export default function Characters(){
+export default function CustomCharacters(){
 
   const [allCharacters, setAllCharacters] = useState([])
   const [characterModel, setCharacterModel] = useState({})
@@ -39,6 +39,7 @@ export default function Characters(){
 
     const response = await marvelApi.get(`/characters/${id}`)
     const result = response.data.data.results[0]
+    console.log(result)
     setCharacterModel(result)
 
     setTimeout(() => {
@@ -59,11 +60,6 @@ export default function Characters(){
 
   function goHome(){
     history.push('/')
-  }
-
-  function goCustomComics(path){
-    // console.log(id)
-    history.push(`/custom-comics:${path}`)
   }
 
   return(
@@ -101,8 +97,6 @@ export default function Characters(){
                   <td>{character.description === "" ? "Personagem sem descrição..." : character.description}</td>
                   <td>{character.comics.available}</td>
                   <td>
-                    <Button onClick={() => {goCustomComics(character.comics.collectionURI); console.log(character.comics.collectionURI)}} className="mb-3 font-weight-bold" size="sm" variant="danger">Ver comics</Button>
-                    <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adcionar aos Favoritos</Button>
                     <Button onClick={() => loadOneCharacter(character.id)} size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>

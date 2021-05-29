@@ -1,17 +1,19 @@
 import React, { useState, useEffect} from 'react'
 
-import { Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
 import marvelApi from '../../services/marvelApi'
 
-import './FavComics.css'
+import './Comics.css'
 
-export default function FavComics(){
+export default function CustomComics(){
+
+
 
   const [allComics, setAllComics] = useState([])
-  const [comicModel, setComicModel] = useState([])
+  const [comicModel, setComicModel] = useState({})
 
   const [showModal, setShowModal] = useState(false);
 
@@ -24,13 +26,14 @@ export default function FavComics(){
 
   useEffect(() => {
     loadTableWithData()
-    loadOneComicOnPageLoad(82970)
-  }, [])
+    loadOneComicOnPageLoad(82970)//this functions loads props and save at comicModel state
+  }, [])                         // instead of this the page brokes cause image and props is not defined yet
 
   async function loadTableWithData(){
-    const response = []
-    // console.log(response)
-    setAllComics(response)
+    const response = await marvelApi.get('/comics')
+    const results = response.data.data.results
+    // console.log(results)
+    setAllComics(results)
   }
 
   async function loadOneComic(id){
@@ -53,22 +56,28 @@ export default function FavComics(){
 
   }
 
+  const history = useHistory()
+
+  function goHome(){
+    history.push('/')
+  }
+
   return(
     <>
       <Navbar/>
       <div className="container manage-products">
           <br/>
-          <h1>HQs Preferidas</h1>
+          <h1>Lista de HQs</h1>
           <br/>
           <div className="page-header">
-            <Link to="/favorites"><Button className="add-productBtn" variant="warning">Voltar para Meus Favoritos</Button></Link>
+            <Link to="/dashboard"><Button onClick={goHome} className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>
           </div>
           <br/>
           <Table className="text-center" striped bordered hover variant="dark">
           <thead>
               <tr>
-                <th>HQs</th>
-                <th>Títulos</th>
+                <th>HQ</th>
+                <th>Título</th>
                 <th>Páginas</th>
                 <th>Personagens</th>
                 <th>Opções</th>
@@ -78,7 +87,7 @@ export default function FavComics(){
               {allComics.map(comic => (
                 <>
                 <tr key={comic.id}>
-                <td>
+                  <td>
                   <img 
                     className="comicImage" 
                     src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} 
@@ -86,19 +95,18 @@ export default function FavComics(){
                   </td>
                   <td>{comic.title}</td>
                   <td>{comic.pageCount === 0 ? "Sem páginas definidas" : `${comic.pageCount} páginas`}</td>
-                  <td>{comic.characters.available}</td>
+                  <td>Iron Man</td>
                   <td>
-                    <Button onClick={() => loadOneComic(comic.id)} size="sm" variant="info">Expandir</Button>
-                    <Button className="ml-2 favComicsBtn" size="sm" variant="danger">Remover das Favoritas</Button>
+                    <Button onClick={() => loadOneComic(comic.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
-                        <Modal.Title>{comicModel}</Modal.Title>
+                        <Modal.Title>{comicModel.title}</Modal.Title>
                       </Modal.Header>
 
                       <Modal.Body>
-                        <img className="modal-image" src={comicModel} alt="aaa"/>
-                        <h2>{comicModel}</h2>
-                        <h2>R$ {comicModel}</h2>
+                        <img className="modal-image" src={`${comicModel.thumbnail.path}.${comicModel.thumbnail.extension}`}  alt="modalImage"/>
+                        <h2 className="modalFirstText">Personagens: {comicModel.characters.available === 0 ? "Sem registros!" : comicModel.characters.available}</h2>
+                        <h2>Preço de Lançamento: {comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `$${comicModel.prices[0].price}`}</h2>
                       </Modal.Body>
 
                       <Modal.Footer>
@@ -114,6 +122,7 @@ export default function FavComics(){
             </tbody>
           </Table>
       </div>
+      <br/>
     </>
   )
 }

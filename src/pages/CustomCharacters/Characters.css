@@ -1,0 +1,21 @@
+.characterImage{
+  width: 60px;
+  height: 60px;
+}
+
+.modalLink{
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: black;
+}
+
+.modalLink:hover{
+  color: black;
+}
+
+.optButton{
+  color: black;
+  font-weight: bold;
+  text-align: left;
+}
