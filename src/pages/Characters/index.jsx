@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react'
 
-import { useHistory, Link, useParams } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
@@ -61,9 +61,19 @@ export default function Characters(){
     history.push('/')
   }
 
-  function goCustomComics(path){
-    // console.log(id)
-    history.push(`/custom-comics:${path}`)
+  async function goCustomComics(endpoint){
+    let cutedEndpoint = await endpoint.slice(35)
+    // console.log(cutedEndpoint)
+
+    let customEndpoint = await cutedEndpoint.replace("/", "-")
+    // console.log(customEndpoint)
+
+    let customEndpoint2 = await customEndpoint.replace("/", "-")
+    // console.log(customEndpoint2)
+
+    let customEndpoint3 = await customEndpoint2.replace("/", "-")
+    // console.log(customEndpoint3)
+    history.push(`/custom-comics/${customEndpoint3}`)
   }
 
   return(
@@ -101,7 +111,7 @@ export default function Characters(){
                   <td>{character.description === "" ? "Personagem sem descrição..." : character.description}</td>
                   <td>{character.comics.available}</td>
                   <td>
-                    <Button onClick={() => {goCustomComics(character.comics.collectionURI); console.log(character.comics.collectionURI)}} className="mb-3 font-weight-bold" size="sm" variant="danger">Ver comics</Button>
+                    <Button disabled={character.comics.available <=0 } onClick={() => goCustomComics(character.comics.collectionURI)} className="mb-3 font-weight-bold" size="sm" variant="danger">Ver comics</Button>
                     <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adcionar aos Favoritos</Button>
                     <Button onClick={() => loadOneCharacter(character.id)} size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>

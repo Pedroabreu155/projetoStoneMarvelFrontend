@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react'
 
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory, Link, useParams } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
@@ -9,6 +9,8 @@ import marvelApi from '../../services/marvelApi'
 import './Characters.css'
 
 export default function CustomCharacters(){
+
+  const { endpoint } = useParams()
 
   const [allCharacters, setAllCharacters] = useState([])
   const [characterModel, setCharacterModel] = useState({})
@@ -67,7 +69,7 @@ export default function CustomCharacters(){
       <Navbar/>
       <div className="container manage-products">
           <br/>
-          <h1>Lista de Personagens</h1>
+          <h1>Lista de Personagens {endpoint}</h1>
           <br/>
           <div className="page-header">
             <Link to="/dashboard"><Button onClick={goHome} className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>

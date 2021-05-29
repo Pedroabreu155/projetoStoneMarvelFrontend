@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
+import './FavCharacters.css'
+
 import marvelApi from '../../services/marvelApi'
 
 export default function FavCharacters(){
@@ -90,7 +92,7 @@ export default function FavCharacters(){
                   <td>{character.comics.available}</td>
                   <td>
                     <Button onClick={() => loadOneCharacter(character.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
-                    <Button className="favCharactersBtn" size="sm" variant="info">Remover dos Favoritos</Button>
+                    <Button className="favCharactersBtn" size="sm" variant="danger">Remover dos Favoritos</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
                         <Modal.Title>{characterModel.name}</Modal.Title>
@@ -124,6 +126,7 @@ export default function FavCharacters(){
             </tbody>
           </Table>
       </div>
+      <br/>
     </>
   )
 }

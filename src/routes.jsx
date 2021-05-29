@@ -46,8 +46,8 @@ export default function Routes() {
           <Route path="/favorites" exact component={Favorites}/>
           <Route path="/favcharacters" exact component={FavCharacters}/>
           <Route path="/favcomics" exact component={FavComics}/>
-          <Route path="/custom-comics" exact component={CustomComics}/>
-          <Route path="/custom-characters" exact component={CustomCharacters}/>
+          <Route path="/custom-comics/:endpoint" exact component={CustomComics}/>
+          <Route path="/custom-characters/:endpoint" exact component={CustomCharacters}/>
         </Switch>
     </div>
   )
