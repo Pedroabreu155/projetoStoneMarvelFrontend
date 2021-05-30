@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback} from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
+import SearcBox from '../../components/SearchBox'
 
 import marvelApi from '../../services/marvelApi'
 
@@ -14,6 +15,7 @@ export default function Characters(){
 
   const [allCharacters, setAllCharacters] = useState([])
   const [characterModel, setCharacterModel] = useState({})
+  const [query, setQuery] = useState('') //this state is used on searchBox
 
   const [showModal, setShowModal] = useState(false);
 
@@ -29,11 +31,28 @@ export default function Characters(){
     loadOneCharacterOnPageLoad(1011334)
   }, [])
 
-  async function loadTableWithData(){
+  useEffect(() => {
+    loadTableWithName()
+  }, [query])
 
-    const response = await marvelApi.get('/characters')
-    const results = response.data.data.results
-    setAllCharacters(results)
+  async function loadTableWithData(){
+      const response = await marvelApi.get('/characters')
+      const results = response.data.data.results
+      setAllCharacters(results)
+  }
+
+  async function loadTableWithName(){
+
+    if(query === ''){
+      const response = await marvelApi.get('/characters')
+      const results = response.data.data.results
+      setAllCharacters(results)
+    }else{
+      const response = await marvelApi.get(`/characters?nameStartsWith=${query}`)
+      const results = response.data.data.results
+      setAllCharacters(results)
+    }
+
   }
 
   async function loadOneCharacter(id){
@@ -58,22 +77,15 @@ export default function Characters(){
 
   const history = useHistory()
 
-  function goHome(){
-    history.push('/dashboard')
-  }
-
-  async function goCustomComics(endpoint){
+  async function goCustomComics(endpoint){ //this function handle path changing - in /
     let cutedEndpoint = await endpoint.slice(35)
-    // console.log(cutedEndpoint)
 
     let customEndpoint = await cutedEndpoint.replace("/", "-")
-    // console.log(customEndpoint)
 
     let customEndpoint2 = await customEndpoint.replace("/", "-")
-    // console.log(customEndpoint2)
 
     let customEndpoint3 = await customEndpoint2.replace("/", "-")
-    // console.log(customEndpoint3)
+
     history.push(`/custom-comics/${customEndpoint3}`)
   }
 
@@ -100,8 +112,9 @@ export default function Characters(){
           <h1>Lista de Personagens</h1>
           <br/>
           <div className="page-header">
-            <Link to="/dashboard"><Button onClick={goHome} className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>
+            <Link to="/dashboard"><Button className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>
           </div>
+          <SearcBox placeholder={'Digite as iniciais do nome... (ex: tony)'} search={(query) => setQuery(query)}/>
           <br/>
           <Table className="text-center" striped bordered hover variant="dark">
             <thead>
@@ -130,13 +143,13 @@ export default function Characters(){
                     <Button 
                       disabled={character.comics.available <=0 } 
                       onClick={() => goCustomComics(character.comics.collectionURI)} 
-                      className="mb-3 font-weight-bold" s
+                      className="tableButton mb-3 font-weight-bold" s
                       ize="sm" 
                       variant="danger">
                         Ver comics
                     </Button>
-                    <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adcionar aos Favoritos</Button>
-                    <Button onClick={() => loadOneCharacter(character.id)} size="sm" variant="info">Expandir</Button>
+                    <Button className="tableButton mb-3 font-weight-bold" size="sm" variant="success">Adcionar aos Favoritos</Button>
+                    <Button className="tableButton" onClick={() => loadOneCharacter(character.id)} size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
                         <Modal.Title>{characterModel.name}</Modal.Title>

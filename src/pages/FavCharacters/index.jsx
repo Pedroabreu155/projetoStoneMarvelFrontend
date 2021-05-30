@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
-
 import { BsPlusSquare } from 'react-icons/bs'
 import { GoArrowUp } from 'react-icons/go'
 import './FavCharacters.css'
@@ -34,7 +33,6 @@ export default function FavCharacters(){
 
     const response = await marvelApi.get('/characters')
     const results = response.data.data.results
-    console.log(results)
     setAllCharacters(results)
   }
 
@@ -42,7 +40,6 @@ export default function FavCharacters(){
 
     const response = await marvelApi.get(`/characters/${id}`)
     const result = response.data.data.results[0]
-    console.log(result)
     setCharacterModel(result)
 
     setTimeout(() => {

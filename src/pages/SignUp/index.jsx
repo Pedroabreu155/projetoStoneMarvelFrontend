@@ -34,7 +34,6 @@ export default function SignUp(){
     if(!name || !email || !password){
       setCredentialErrors('Senha ou usuário inválido!')
     } else{
-      console.log('Usuário criado!')
       clearErrors()
       clearInputs()
       history.push('/dashboard')

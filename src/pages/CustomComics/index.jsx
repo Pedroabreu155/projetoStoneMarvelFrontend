@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 
-import { useHistory, Link, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
@@ -14,28 +14,23 @@ export default function CustomComics(){
 
   const { endpoint } = useParams()
 
-  async function changeEndpointInRequestPath(endpoint){
+  async function changeEndpointInRequestPath(endpoint){ //this function handle path changing / in -
 
     let customEndpoint = await endpoint.replace("-", "/")
-    // console.log(customEndpoint)
 
     let customEndpoint2 = await customEndpoint.replace("-", "/")
-    // console.log(customEndpoint2)
 
     let customEndpoint3 = await customEndpoint2.replace("-", "/")
-    console.log(customEndpoint3)
     
     let finalEndpoint = await customEndpoint3.toString()
 
     return finalEndpoint
-    
-
   }
 
   const [allComics, setAllComics] = useState([])
   const [comicModel, setComicModel] = useState({})
 
-  const offset = allComics.length
+  const offset = allComics.length // param in Marvel API who control response range
 
   const [showModal, setShowModal] = useState(false);
 
@@ -58,12 +53,8 @@ export default function CustomComics(){
         marvelApi.get(`${apiPath}`).then( response =>{
           const results = response.data.data.results
           setAllComics(results)
-        })
-
-      // console.log(results)
-      
+        })  
     })
-
   }
 
   async function loadOneComic(id){

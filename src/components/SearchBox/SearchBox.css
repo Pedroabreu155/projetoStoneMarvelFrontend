@@ -1,0 +1,21 @@
+.search {
+  height: 60px;
+}
+
+.searcBoxInput {
+  display: block;
+  padding: 10px;
+  font-size: 20px;
+  border: 0;
+  border-radius: 5px;
+  width: 60%;
+  margin: auto;
+  background-color: #292b2c;
+  color: white;
+}
+
+.searcBoxInput:focus{
+  background-color: #292b2c;
+  color: white;
+}
+

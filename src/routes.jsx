@@ -38,16 +38,16 @@ export default function Routes() {
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/signup" exact component={SignUp}/>
-          <Route path="/dashboard" exact component={Dashboard}/>
-          <Route path="/characters" exact component={Characters}/>
-          <Route path="/comics" exact component={Comics}/>
-          <Route path="/profile" exact component={Profile}/>
-          <Route path="/editprofile" exact component={EditProfile}/>
-          <Route path="/favorites" exact component={Favorites}/>
-          <Route path="/favcharacters" exact component={FavCharacters}/>
-          <Route path="/favcomics" exact component={FavComics}/>
-          <Route path="/custom-comics/:endpoint" exact component={CustomComics}/>
-          <Route path="/custom-characters/:endpoint" exact component={CustomCharacters}/>
+          <PrivateRoute path="/dashboard" exact component={Dashboard}/>
+          <PrivateRoute path="/characters" exact component={Characters}/>
+          <PrivateRoute path="/comics" exact component={Comics}/>
+          <PrivateRoute path="/profile" exact component={Profile}/>
+          <PrivateRoute path="/editprofile" exact component={EditProfile}/>
+          <PrivateRoute path="/favorites" exact component={Favorites}/>
+          <PrivateRoute path="/favcharacters" exact component={FavCharacters}/>
+          <PrivateRoute path="/favcomics" exact component={FavComics}/>
+          <PrivateRoute path="/custom-comics/:endpoint" exact component={CustomComics}/>
+          <PrivateRoute path="/custom-characters/:endpoint" exact component={CustomCharacters}/>
         </Switch>
     </div>
   )

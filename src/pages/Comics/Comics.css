@@ -34,3 +34,8 @@
   background-color: #f7f7f7;
   color: #292b2c;
 }
+
+.tableButton{
+  display: block;
+  margin: auto
+}

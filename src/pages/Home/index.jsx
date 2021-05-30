@@ -32,7 +32,6 @@ export default function Home(){
     if(email !== 'pedro@email.com' || password !== 'abcd123' ){
       setCredentialErrors('Senha ou Usuário inválido!')
     } else{
-      console.log('logado')
       clearErrors()
       clearInputs()
       history.push('/dashboard')
@@ -69,7 +68,7 @@ export default function Home(){
             value={userPassword}
             onChange={event => setUserPassword(event.target.value)}
             type="password" placeholder="Digite sua Senha" />
-            <p className="error">{credentialsErrors}</p>
+            <p className="error mt-3">{credentialsErrors}</p>
           </Form.Group>
           <div className="btn-form-div">
             <Button type="submit" className="login-btn" variant="dark">Login</Button>

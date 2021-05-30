@@ -14,28 +14,24 @@ export default function CustomCharacters(){
 
   const { endpoint } = useParams()
 
-  async function changeEndpointInRequestPath(endpoint){
+  async function changeEndpointInRequestPath(endpoint){ // this function handle path changing - in /
 
     let customEndpoint = await endpoint.replace("-", "/")
-    // console.log(customEndpoint)
 
     let customEndpoint2 = await customEndpoint.replace("-", "/")
-    // console.log(customEndpoint2)
 
     let customEndpoint3 = await customEndpoint2.replace("-", "/")
-    console.log(customEndpoint3)
     
     let finalEndpoint = await customEndpoint3.toString()
 
     return finalEndpoint
     
-
   }
 
   const [allCharacters, setAllCharacters] = useState([])
   const [characterModel, setCharacterModel] = useState({})
 
-  const offset = allCharacters.length
+  const offset = allCharacters.length // offset is a param on Marvel API who controls response range
 
   const [showModal, setShowModal] = useState(false);
 
@@ -58,9 +54,6 @@ export default function CustomCharacters(){
         const results = response.data.data.results
         setAllCharacters(results)
       })
-
-    // console.log(results)
-    
   })
 
 }
@@ -69,13 +62,11 @@ export default function CustomCharacters(){
 
     const response = await marvelApi.get(`/characters/${id}`)
     const result = response.data.data.results[0]
-    console.log(result)
     setCharacterModel(result)
 
     setTimeout(() => {
       handleShowModal()
     }, 1)
-
   }
 
   async function loadOneCharacterOnPageLoad(id){

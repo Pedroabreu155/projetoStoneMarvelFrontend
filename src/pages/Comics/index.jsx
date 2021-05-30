@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
+import SearcBox from '../../components/SearchBox'
 
 import marvelApi from '../../services/marvelApi'
 
@@ -14,6 +15,7 @@ export default function Comics(){
 
   const [allComics, setAllComics] = useState([])
   const [comicModel, setComicModel] = useState({})
+  const [query, setQuery] = useState('') //this state is used on searchBox
 
   const [showModal, setShowModal] = useState(false);
 
@@ -27,12 +29,15 @@ export default function Comics(){
   useEffect(() => {
     loadTableWithData()
     loadOneComicOnPageLoad(82970)//this functions loads props and save at comicModel state
-  }, [])                         // instead of this the page brokes cause image and props is not defined yet
+  }, [])                       // instead of this the page brokes cause image and props is not defined yet
+
+  useEffect(() => {
+    loadTableWithTitle()
+  }, [query])
 
   async function loadTableWithData(){
     const response = await marvelApi.get('/comics')
     const results = response.data.data.results
-    // console.log(results)
     setAllComics(results)
   }
 
@@ -52,25 +57,35 @@ export default function Comics(){
 
     const response = await marvelApi.get(`/comics/${id}`)
     const result = response.data.data.results[0]
-    console.log(result)
     setComicModel(result)
+
+  }
+
+  async function loadTableWithTitle(){
+
+    if(query === ''){
+      const response = await marvelApi.get('/comics')
+      const results = response.data.data.results
+      setAllComics(results)
+    }else{
+      const response = await marvelApi.get(`/comics?titleStartsWith=${query}`)
+      const results = response.data.data.results
+      setAllComics(results)
+    }
 
   }
 
   const history = useHistory()
 
-  async function goCustomCharacters(endpoint){
+  async function goCustomCharacters(endpoint){ //this function handle path changing - in /
     let cutedEndpoint = await endpoint.slice(35)
-    // console.log(cutedEndpoint)
 
     let customEndpoint = await cutedEndpoint.replace("/", "-")
-    // console.log(customEndpoint)
 
     let customEndpoint2 = await customEndpoint.replace("/", "-")
-    // console.log(customEndpoint2)
 
     let customEndpoint3 = await customEndpoint2.replace("/", "-")
-    // console.log(customEndpoint3)
+
     history.push(`/custom-characters/${customEndpoint3}`)
   }
 
@@ -99,6 +114,7 @@ export default function Comics(){
           <div className="page-header">
             <Link to="/dashboard"><Button className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>
           </div>
+          <SearcBox placeholder={'Digite as iniciais do título... (ex: fantastic)'} search={(query) => setQuery(query)}/>
           <br/>
           <Table className="text-center" striped bordered hover variant="dark">
           <thead>
