@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar'
 import marvelApi from '../../services/marvelApi'
 
 import { BsPlusSquare } from 'react-icons/bs'
+import { GoArrowUp } from 'react-icons/go'
 import './CustomComics.css'
 
 export default function CustomComics(){
@@ -85,12 +86,6 @@ export default function CustomComics(){
 
   }
 
-  const history = useHistory()
-
-  function goHome(){
-    history.push('/')
-  }
-
   const loadMore = useCallback(async () => {
 
     changeEndpointInRequestPath(endpoint).then(apiPath => {
@@ -112,13 +107,14 @@ export default function CustomComics(){
 
   return(
     <>
+      <div id="top"></div>
       <Navbar/>
       <div className="container manage-products">
           <br/>
           <h1>Lista de HQs</h1>
           <br/>
           <div className="page-header">
-            <Link to="/dashboard"><Button onClick={goHome} className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>
+            <Link to="/characters"><Button className="add-productBtn" variant="warning">Voltar para Personagens</Button></Link>
           </div>
           <br/>
           <Table className="text-center" striped bordered hover variant="dark">
@@ -169,6 +165,7 @@ export default function CustomComics(){
               
             </tbody>
           </Table>
+          <a className="top" href="#top"><GoArrowUp/></a>
           <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>

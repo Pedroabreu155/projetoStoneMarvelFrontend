@@ -42,3 +42,23 @@
   background-color: #f7f7f7;
   color: #292b2c;
 }
+/* go top button */
+.top{
+  position: fixed;
+  padding: 15px 15px;
+  background-color: #292b2c;
+  right: 10px;
+  bottom: 50px;
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 10px;
+  margin-right: 2.5rem;
+  transition: 0.4s;
+}
+
+.top:hover{
+  background-color: #f7f7f7;
+  color: #292b2c;
+}

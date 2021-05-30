@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar'
 import marvelApi from '../../services/marvelApi'
 
 import { BsPlusSquare } from 'react-icons/bs'
+import { GoArrowUp } from 'react-icons/go'
 import './Characters.css'
 
 export default function Characters(){
@@ -92,6 +93,7 @@ export default function Characters(){
 
   return(
     <>
+      <div id="top"></div>
       <Navbar/>
       <div className="container manage-products">
           <br/>
@@ -167,6 +169,7 @@ export default function Characters(){
               
             </tbody>
           </Table>
+          <a className="top" href="#top"><GoArrowUp/></a>
           <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>

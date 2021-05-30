@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react'
 
-import { useHistory, Link, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
 import marvelApi from '../../services/marvelApi'
 
 import { BsPlusSquare } from 'react-icons/bs'
+import { GoArrowUp } from 'react-icons/go'
 import './CustomCharacters.css'
 
 export default function CustomCharacters(){
@@ -32,7 +33,6 @@ export default function CustomCharacters(){
   }
 
   const [allCharacters, setAllCharacters] = useState([])
-  const [allCharactersCount, setAllCharactersCount] = useState(0)
   const [characterModel, setCharacterModel] = useState({})
 
   const offset = allCharacters.length
@@ -57,7 +57,7 @@ export default function CustomCharacters(){
       marvelApi.get(`${apiPath}`).then( response =>{
         const results = response.data.data.results
         setAllCharacters(results)
-      }).then(() => setAllCharactersCount(allCharacters.length))
+      })
 
     // console.log(results)
     
@@ -86,12 +86,6 @@ export default function CustomCharacters(){
 
   }
 
-  const history = useHistory()
-
-  function goHome(){
-    history.push('/dashboard')
-  }
-
   const loadMore = useCallback(async () => {
 
     changeEndpointInRequestPath(endpoint).then(apiPath => {
@@ -113,13 +107,14 @@ export default function CustomCharacters(){
 
   return(
     <>
+      <div id="top"></div>
       <Navbar/>
       <div className="container manage-products">
           <br/>
           <h1>Lista de Personagens</h1>
           <br/>
           <div className="page-header">
-            <Link to="/dashboard"><Button onClick={goHome} className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>
+            <Link to="/comics"><Button className="add-productBtn" variant="warning">Voltar para Comics</Button></Link>
           </div>
           <br/>
           <Table className="text-center" striped bordered hover variant="dark">
@@ -179,7 +174,8 @@ export default function CustomCharacters(){
               
             </tbody>
           </Table>
-          {allCharactersCount <= 20 ? <></> : <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>}
+          <a className="top" href="#top"><GoArrowUp/></a>
+          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>
     </>

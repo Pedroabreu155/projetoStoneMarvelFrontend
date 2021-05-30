@@ -1,9 +1,12 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useCallback} from 'react'
 
 import { Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
+
+import { BsPlusSquare } from 'react-icons/bs'
+import { GoArrowUp } from 'react-icons/go'
 import './FavCharacters.css'
 
 import marvelApi from '../../services/marvelApi'
@@ -56,8 +59,23 @@ export default function FavCharacters(){
 
   }
 
+  const loadMore = useCallback(async () => {
+
+    const offset = allCharacters.length
+
+    const response = await marvelApi.get('/characters', {
+      params: {
+        offset
+      }
+    })
+    const results = response.data.data.results
+    setAllCharacters([...allCharacters, ...results])
+
+  }, [allCharacters])
+
   return(
     <>
+      <div id="top"></div>
       <Navbar/>
       <div className="container manage-products">
           <br/>
@@ -125,6 +143,8 @@ export default function FavCharacters(){
               
             </tbody>
           </Table>
+          <a className="top" href="#top"><GoArrowUp/></a>
+          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>
     </>

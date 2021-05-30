@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar'
 import marvelApi from '../../services/marvelApi'
 
 import { BsPlusSquare } from 'react-icons/bs'
+import { GoArrowUp } from 'react-icons/go'
 import './Comics.css'
 
 export default function Comics(){
@@ -58,10 +59,6 @@ export default function Comics(){
 
   const history = useHistory()
 
-  function goHome(){
-    history.push('/dashboard')
-  }
-
   async function goCustomCharacters(endpoint){
     let cutedEndpoint = await endpoint.slice(35)
     // console.log(cutedEndpoint)
@@ -93,13 +90,14 @@ export default function Comics(){
 
   return(
     <>
+      <div id="top"></div>
       <Navbar/>
       <div className="container manage-products">
           <br/>
           <h1>Lista de HQs</h1>
           <br/>
           <div className="page-header">
-            <Link to="/dashboard"><Button onClick={goHome} className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>
+            <Link to="/dashboard"><Button className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>
           </div>
           <br/>
           <Table className="text-center" striped bordered hover variant="dark">
@@ -159,6 +157,7 @@ export default function Comics(){
               
             </tbody>
           </Table>
+          <a className="top" href="#top"><GoArrowUp/></a>
           <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useCallback} from 'react'
 
 import { Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbar'
 
 import marvelApi from '../../services/marvelApi'
 
+import { BsPlusSquare } from 'react-icons/bs'
+import { GoArrowUp } from 'react-icons/go'
 import './FavComics.css'
 
 export default function FavComics(){
@@ -28,9 +30,10 @@ export default function FavComics(){
   }, [])
 
   async function loadTableWithData(){
-    const response = []
-    // console.log(response)
-    setAllComics(response)
+
+    const response = await marvelApi.get('/comics')
+    const results = response.data.data.results
+    setAllComics(results)
   }
 
   async function loadOneComic(id){
@@ -53,8 +56,23 @@ export default function FavComics(){
 
   }
 
+  const loadMore = useCallback(async () => {
+
+    const offset = allComics.length
+
+    const response = await marvelApi.get('/comics', {
+      params: {
+        offset
+      }
+    })
+    const results = response.data.data.results
+    setAllComics([...allComics, ...results])
+
+  }, [allComics])
+
   return(
     <>
+      <div id="top"></div>
       <Navbar/>
       <div className="container manage-products">
           <br/>
@@ -88,17 +106,17 @@ export default function FavComics(){
                   <td>{comic.pageCount === 0 ? "Sem páginas definidas" : `${comic.pageCount} páginas`}</td>
                   <td>{comic.characters.available}</td>
                   <td>
-                    <Button onClick={() => loadOneComic(comic.id)} size="sm" variant="info">Expandir</Button>
+                    <Button onClick={() => loadOneComic(comic.id)} className="mb-3" size="sm" variant="info">Expandir</Button>
                     <Button className="ml-2 favComicsBtn" size="sm" variant="danger">Remover das Favoritas</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
-                        <Modal.Title>{comicModel}</Modal.Title>
+                        <Modal.Title>{comicModel.title}</Modal.Title>
                       </Modal.Header>
 
                       <Modal.Body>
-                        <img className="modal-image" src={comicModel} alt="aaa"/>
-                        <h2>{comicModel}</h2>
-                        <h2>{comicModel}</h2>
+                        <img className="modal-image" src={`${comicModel.thumbnail.path}.${comicModel.thumbnail.extension}`} alt="ComicImage"/>
+                        <h2>Personagens: {comicModel.characters.available === 0 ? "Sem registros!" : comicModel.characters.available}</h2>
+                        <h2>{comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `$Preço de Lançamento: ${comicModel.prices[0].price}`}</h2>
                       </Modal.Body>
 
                       <Modal.Footer>
@@ -113,6 +131,8 @@ export default function FavComics(){
               
             </tbody>
           </Table>
+          <a className="top" href="#top"><GoArrowUp/></a>
+          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
     </>
   )
