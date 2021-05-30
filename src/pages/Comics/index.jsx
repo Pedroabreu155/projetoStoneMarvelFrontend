@@ -50,6 +50,7 @@ export default function Comics(){
 
     const response = await marvelApi.get(`/comics/${id}`)
     const result = response.data.data.results[0]
+    console.log(result)
     setComicModel(result)
 
   }
@@ -57,7 +58,22 @@ export default function Comics(){
   const history = useHistory()
 
   function goHome(){
-    history.push('/')
+    history.push('/dashboard')
+  }
+
+  async function goCustomCharacters(endpoint){
+    let cutedEndpoint = await endpoint.slice(35)
+    // console.log(cutedEndpoint)
+
+    let customEndpoint = await cutedEndpoint.replace("/", "-")
+    // console.log(customEndpoint)
+
+    let customEndpoint2 = await customEndpoint.replace("/", "-")
+    // console.log(customEndpoint2)
+
+    let customEndpoint3 = await customEndpoint2.replace("/", "-")
+    // console.log(customEndpoint3)
+    history.push(`/custom-characters/${customEndpoint3}`)
   }
 
   return(
@@ -95,7 +111,15 @@ export default function Comics(){
                   <td>{comic.pageCount === 0 ? "Sem páginas definidas" : `${comic.pageCount} páginas`}</td>
                   <td>{comic.characters.available}</td>
                   <td>
-                    <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adicionar as Favoritas</Button>
+                  <Button 
+                    disabled={comic.characters.available <=0 }
+                    onClick={() => goCustomCharacters(comic.characters.collectionURI)} 
+                    className="mb-3 font-weight-bold" 
+                    size="sm" 
+                    variant="danger">
+                      Ver Personagens
+                    </Button>
+                    <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adicionar as Favoritas</Button><br/>
                     <Button onClick={() => loadOneComic(comic.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>

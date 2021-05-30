@@ -12,6 +12,24 @@ export default function CustomCharacters(){
 
   const { endpoint } = useParams()
 
+  async function changeEndpointInRequestPath(endpoint){
+
+    let customEndpoint = await endpoint.replace("-", "/")
+    // console.log(customEndpoint)
+
+    let customEndpoint2 = await customEndpoint.replace("-", "/")
+    // console.log(customEndpoint2)
+
+    let customEndpoint3 = await customEndpoint2.replace("-", "/")
+    console.log(customEndpoint3)
+    
+    let finalEndpoint = await customEndpoint3.toString()
+
+    return finalEndpoint
+    
+
+  }
+
   const [allCharacters, setAllCharacters] = useState([])
   const [characterModel, setCharacterModel] = useState({})
 
@@ -31,11 +49,17 @@ export default function CustomCharacters(){
 
   async function loadTableWithData(){
 
-    const response = await marvelApi.get('/characters')
-    const results = response.data.data.results
-    console.log(results)
-    setAllCharacters(results)
-  }
+    changeEndpointInRequestPath(endpoint).then(apiPath =>{
+      marvelApi.get(`${apiPath}`).then( response =>{
+        const results = response.data.data.results
+        setAllCharacters(results)
+      })
+
+    // console.log(results)
+    
+  })
+
+}
 
   async function loadOneCharacter(id){
 
@@ -69,7 +93,7 @@ export default function CustomCharacters(){
       <Navbar/>
       <div className="container manage-products">
           <br/>
-          <h1>Lista de Personagens {endpoint}</h1>
+          <h1>Lista de Personagens</h1>
           <br/>
           <div className="page-header">
             <Link to="/dashboard"><Button onClick={goHome} className="add-productBtn" variant="warning">Voltar para Dashboard</Button></Link>

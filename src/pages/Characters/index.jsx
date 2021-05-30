@@ -31,7 +31,6 @@ export default function Characters(){
 
     const response = await marvelApi.get('/characters')
     const results = response.data.data.results
-    console.log(results)
     setAllCharacters(results)
   }
 
@@ -58,7 +57,7 @@ export default function Characters(){
   const history = useHistory()
 
   function goHome(){
-    history.push('/')
+    history.push('/dashboard')
   }
 
   async function goCustomComics(endpoint){
@@ -111,7 +110,14 @@ export default function Characters(){
                   <td>{character.description === "" ? "Personagem sem descrição..." : character.description}</td>
                   <td>{character.comics.available}</td>
                   <td>
-                    <Button disabled={character.comics.available <=0 } onClick={() => goCustomComics(character.comics.collectionURI)} className="mb-3 font-weight-bold" size="sm" variant="danger">Ver comics</Button>
+                    <Button 
+                      disabled={character.comics.available <=0 } 
+                      onClick={() => goCustomComics(character.comics.collectionURI)} 
+                      className="mb-3 font-weight-bold" s
+                      ize="sm" 
+                      variant="danger">
+                        Ver comics
+                    </Button>
                     <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adcionar aos Favoritos</Button>
                     <Button onClick={() => loadOneCharacter(character.id)} size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
