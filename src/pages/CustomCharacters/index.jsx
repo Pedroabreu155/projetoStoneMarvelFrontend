@@ -32,7 +32,10 @@ export default function CustomCharacters(){
   }
 
   const [allCharacters, setAllCharacters] = useState([])
+  const [allCharactersCount, setAllCharactersCount] = useState(0)
   const [characterModel, setCharacterModel] = useState({})
+
+  const offset = allCharacters.length
 
   const [showModal, setShowModal] = useState(false);
 
@@ -54,7 +57,7 @@ export default function CustomCharacters(){
       marvelApi.get(`${apiPath}`).then( response =>{
         const results = response.data.data.results
         setAllCharacters(results)
-      })
+      }).then(() => setAllCharactersCount(allCharacters.length))
 
     // console.log(results)
     
@@ -90,8 +93,6 @@ export default function CustomCharacters(){
   }
 
   const loadMore = useCallback(async () => {
-
-    const offset = allCharacters.length
 
     changeEndpointInRequestPath(endpoint).then(apiPath => {
 
@@ -178,7 +179,7 @@ export default function CustomCharacters(){
               
             </tbody>
           </Table>
-          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
+          {allCharactersCount <= 20 ? <></> : <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>}
       </div>
       <br/>
     </>

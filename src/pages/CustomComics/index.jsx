@@ -34,6 +34,8 @@ export default function CustomComics(){
   const [allComics, setAllComics] = useState([])
   const [comicModel, setComicModel] = useState({})
 
+  const offset = allComics.length
+
   const [showModal, setShowModal] = useState(false);
 
   function handleCloseModal(){
@@ -90,8 +92,6 @@ export default function CustomComics(){
   }
 
   const loadMore = useCallback(async () => {
-
-    const offset = allComics.length
 
     changeEndpointInRequestPath(endpoint).then(apiPath => {
 
