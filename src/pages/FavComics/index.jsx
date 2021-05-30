@@ -98,7 +98,7 @@ export default function FavComics(){
                       <Modal.Body>
                         <img className="modal-image" src={comicModel} alt="aaa"/>
                         <h2>{comicModel}</h2>
-                        <h2>R$ {comicModel}</h2>
+                        <h2>{comicModel}</h2>
                       </Modal.Body>
 
                       <Modal.Footer>

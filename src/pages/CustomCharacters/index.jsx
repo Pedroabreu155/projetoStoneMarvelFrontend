@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import { useHistory, Link, useParams } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
@@ -6,7 +6,8 @@ import Navbar from '../../components/Navbar'
 
 import marvelApi from '../../services/marvelApi'
 
-import './Characters.css'
+import { BsPlusSquare } from 'react-icons/bs'
+import './CustomCharacters.css'
 
 export default function CustomCharacters(){
 
@@ -85,8 +86,29 @@ export default function CustomCharacters(){
   const history = useHistory()
 
   function goHome(){
-    history.push('/')
+    history.push('/dashboard')
   }
+
+  const loadMore = useCallback(async () => {
+
+    const offset = allCharacters.length
+
+    changeEndpointInRequestPath(endpoint).then(apiPath => {
+
+      marvelApi.get(`${apiPath}`, {
+        params: {
+          offset
+        }
+      }).then(response =>{
+        
+        const results = response.data.data.results
+        setAllCharacters([...allCharacters, ...results])
+      })
+
+
+    })
+
+  }, [allCharacters])
 
   return(
     <>
@@ -156,6 +178,7 @@ export default function CustomCharacters(){
               
             </tbody>
           </Table>
+          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>
     </>

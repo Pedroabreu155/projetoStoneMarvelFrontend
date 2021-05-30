@@ -1,3 +1,26 @@
 .favCharactersBtn{
   margin-top: 1rem;
 }
+
+.loadMoreButton{
+  background-color: #292b2c;
+  color: white;
+  margin: 1.25rem auto;
+  width: 12rem;
+  height: 3.5rem;
+  padding: 0 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.4s;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.loadMoreButton:hover{
+  background-color: #f7f7f7;
+  color: #292b2c;
+}

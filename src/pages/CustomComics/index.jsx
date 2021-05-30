@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import { useHistory, Link, useParams } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
@@ -6,7 +6,8 @@ import Navbar from '../../components/Navbar'
 
 import marvelApi from '../../services/marvelApi'
 
-import './Comics.css'
+import { BsPlusSquare } from 'react-icons/bs'
+import './CustomComics.css'
 
 export default function CustomComics(){
 
@@ -88,6 +89,27 @@ export default function CustomComics(){
     history.push('/')
   }
 
+  const loadMore = useCallback(async () => {
+
+    const offset = allComics.length
+
+    changeEndpointInRequestPath(endpoint).then(apiPath => {
+
+      marvelApi.get(`${apiPath}`, {
+        params: {
+          offset
+        }
+      }).then(response =>{
+        
+        const results = response.data.data.results
+        setAllComics([...allComics, ...results])
+      })
+
+
+    })
+
+  }, [allComics])
+
   return(
     <>
       <Navbar/>
@@ -121,7 +143,7 @@ export default function CustomComics(){
                   </td>
                   <td>{comic.title}</td>
                   <td>{comic.pageCount === 0 ? "Sem páginas definidas" : `${comic.pageCount} páginas`}</td>
-                  <td>Iron Man</td>
+                  <td>{comic.characters.available}</td>
                   <td>
                     <Button onClick={() => loadOneComic(comic.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
@@ -132,7 +154,7 @@ export default function CustomComics(){
                       <Modal.Body>
                         <img className="modal-image" src={`${comicModel.thumbnail.path}.${comicModel.thumbnail.extension}`}  alt="modalImage"/>
                         <h2 className="modalFirstText">Personagens: {comicModel.characters.available === 0 ? "Sem registros!" : comicModel.characters.available}</h2>
-                        <h2>Preço de Lançamento: {comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `$${comicModel.prices[0].price}`}</h2>
+                        <h2>{comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `$Preço de Lançamento: ${comicModel.prices[0].price}`}</h2>
                       </Modal.Body>
 
                       <Modal.Footer>
@@ -147,6 +169,7 @@ export default function CustomComics(){
               
             </tbody>
           </Table>
+          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>
     </>

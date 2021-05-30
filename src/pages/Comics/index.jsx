@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import { useHistory, Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar'
 
 import marvelApi from '../../services/marvelApi'
 
+import { BsPlusSquare } from 'react-icons/bs'
 import './Comics.css'
 
 export default function Comics(){
@@ -76,6 +77,20 @@ export default function Comics(){
     history.push(`/custom-characters/${customEndpoint3}`)
   }
 
+  const loadMore = useCallback(async () => {
+
+    const offset = allComics.length
+
+    const response = await marvelApi.get('/comics', {
+      params: {
+        offset
+      }
+    })
+    const results = response.data.data.results
+    setAllComics([...allComics, ...results])
+
+  }, [allComics])
+
   return(
     <>
       <Navbar/>
@@ -129,7 +144,7 @@ export default function Comics(){
                       <Modal.Body>
                         <img className="modal-image" src={`${comicModel.thumbnail.path}.${comicModel.thumbnail.extension}`}  alt="modalImage"/>
                         <h2 className="modalFirstText">Personagens: {comicModel.characters.available === 0 ? "Sem registros!" : comicModel.characters.available}</h2>
-                        <h2>Preço de Lançamento: {comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `$${comicModel.prices[0].price}`}</h2>
+                        <h2>{comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `$Preço de Lançamento: ${comicModel.prices[0].price}`}</h2>
                       </Modal.Body>
 
                       <Modal.Footer>
@@ -144,6 +159,7 @@ export default function Comics(){
               
             </tbody>
           </Table>
+          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>
     </>

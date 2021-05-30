@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
   body, html {
     width: 100vw;
     height: 100vh;
+    overflow-x: hidden;
     font-family: Helvetica, Sans-Serif;
     background-color: rgb(171, 171, 171);
     color: black;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useCallback} from 'react'
 
 import { useHistory, Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar'
 
 import marvelApi from '../../services/marvelApi'
 
+import { BsPlusSquare } from 'react-icons/bs'
 import './Characters.css'
 
 export default function Characters(){
@@ -74,6 +75,20 @@ export default function Characters(){
     // console.log(customEndpoint3)
     history.push(`/custom-comics/${customEndpoint3}`)
   }
+
+  const loadMore = useCallback(async () => {
+
+    const offset = allCharacters.length
+
+    const response = await marvelApi.get('/characters', {
+      params: {
+        offset
+      }
+    })
+    const results = response.data.data.results
+    setAllCharacters([...allCharacters, ...results])
+
+  }, [allCharacters])
 
   return(
     <>
@@ -152,6 +167,7 @@ export default function Characters(){
               
             </tbody>
           </Table>
+          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>
     </>
