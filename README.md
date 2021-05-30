@@ -30,7 +30,7 @@ Para utilizá-lo basta baixar a pasta .zip ou clonar o repositório em sua máqu
 
 #### Qualquer dúvida me chame nas redes sociais, happy hacking  :top: ####
 
-__Todos os dados são fornecidos pela Marvel, acesse pelo site oficial:__<a href="https://marvel.com">Marvel</a>
+__Todos os dados são fornecidos pela Marvel, acesse pelo site oficial:__<a href="https://marvel.com"> Marvel</a>
 
 
 
