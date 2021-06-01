@@ -28,7 +28,7 @@ export default function EditProfile(){
     const name = userName
     const email = userEmail
     const password = userPassword
-    const userID = getUserId()
+    const userID = await getUserId()
 
     if(!name || !email || !password){
       setCredentialErrors('Preencha todos os campos!')
