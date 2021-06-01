@@ -70,6 +70,24 @@ export default function FavComics(){
 
   }
 
+  async function removeFavorite(id){
+
+    const userID = await getUserId()
+    const response = await authApi.get(`/users/favorites-comics/${userID}`)
+    const result = await response.data.favoriteComics
+    let favorites = []
+    favorites = [...result]
+    favorites.splice(favorites.indexOf(id), 1)
+
+    await authApi.put(`/users/edit-favorite-comics/${userID}`, {
+      'favoriteComics': favorites
+    })
+
+    window.alert('Favorito Removido!')
+
+    loadTableWithData()
+  }
+
   return(
     <>
       <div id="top"></div>
@@ -107,7 +125,7 @@ export default function FavComics(){
                   <td>{comic.characters.available}</td>
                   <td>
                     <Button onClick={() => loadOneComic(comic.id)} className="mb-3" size="sm" variant="info">Expandir</Button><br/>
-                    <Button className="ml-2 favComicsBtn" size="sm" variant="danger">Remover das Favoritas</Button>
+                    <Button onClick={() => removeFavorite(comic.id)} className="ml-2 favComicsBtn" size="sm" variant="danger">Remover das Favoritas</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
                         <Modal.Title>{comicModel.title}</Modal.Title>

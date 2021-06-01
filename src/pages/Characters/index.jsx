@@ -166,14 +166,14 @@ export default function Characters(){
                       ize="sm" 
                       variant="danger">
                         Ver comics
-                    </Button>
+                    </Button><br/>
                     <Button
                       className="tableButton mb-3 font-weight-bold" 
                       onClick={() => addFavorite(character.id)} 
                       size="sm" 
                       variant="success">
                         Adcionar aos Favoritos
-                    </Button>
+                    </Button><br/>
                     <Button className="tableButton" onClick={() => loadOneCharacter(character.id)} size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>

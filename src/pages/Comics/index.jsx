@@ -166,7 +166,7 @@ export default function Comics(){
                     size="sm" 
                     variant="danger">
                       Ver Personagens
-                    </Button>
+                    </Button><br/>
                     <Button onClick={() => addFavorite(comic.id)} className="mb-3 font-weight-bold" size="sm" variant="success">Adicionar as Favoritas</Button><br/>
                     <Button onClick={() => loadOneComic(comic.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>

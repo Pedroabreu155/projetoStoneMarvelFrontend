@@ -69,6 +69,24 @@ export default function FavCharacters(){
 
   }
 
+  async function removeFavorite(id){
+
+    const userID = await getUserId()
+    const response = await authApi.get(`/users/favorites-characters/${userID}`)
+    const result = await response.data.favoriteCharacters
+    let favorites = []
+    favorites = [...result]
+    favorites.splice(favorites.indexOf(id), 1)
+
+    await authApi.put(`/users/edit-favorite-characters/${userID}`, {
+      'favoriteCharacters': favorites
+    })
+
+    window.alert('Favorito Removido!')
+
+    loadTableWithData()
+  }
+
   return(
     <>
       <div id="top"></div>
@@ -105,8 +123,8 @@ export default function FavCharacters(){
                   <td>{character.description === "" ? "Personagem sem descrição..." : character.description}</td>
                   <td>{character.comics.available}</td>
                   <td>
-                    <Button onClick={() => loadOneCharacter(character.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
-                    <Button className="favCharactersBtn" size="sm" variant="danger">Remover dos Favoritos</Button>
+                    <Button onClick={() => loadOneCharacter(character.id)} className="mr-2" size="sm" variant="info">Expandir</Button><br/>
+                    <Button onClick={() => removeFavorite(character.id)} className="favCharactersBtn" size="sm" variant="danger">Remover dos Favoritos</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
                         <Modal.Title>{characterModel.name}</Modal.Title>
