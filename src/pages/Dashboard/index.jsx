@@ -8,6 +8,9 @@ import { Tittle, Text } from './styles'
 import './Dashboard.css'
 
 export default function Dashboard(){
+
+  console.log(process.env.REACT_APP_AUTH_API_URL)
+
   return(
     <>
       <Navbar/>
