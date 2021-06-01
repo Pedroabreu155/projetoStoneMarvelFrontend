@@ -4,6 +4,9 @@ import './SignUp.css'
 import { Form, Button } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
 
+import { login } from '../../services/Auth/auth'
+import authApi from '../../services/Auth/authApi'
+
 export default function SignUp(){
 
   const [userName, setUserName] = useState('')
@@ -12,12 +15,6 @@ export default function SignUp(){
   const [credentialsErrors, setCredentialErrors] = useState('')
 
   let history = useHistory()
-
-  function clearInputs(){
-    setUserName('')
-    setUserEmail('')
-    setUserPassword('')
-  }
 
   function clearErrors(){
     setCredentialErrors('')
@@ -32,11 +29,23 @@ export default function SignUp(){
     const password = userPassword
 
     if(!name || !email || !password){
-      setCredentialErrors('Senha ou usuário inválido!')
+      setCredentialErrors('Preencha todos os campos!')
     } else{
-      clearErrors()
-      clearInputs()
-      history.push('/dashboard')
+
+      try {
+        
+        const response = await authApi.post('/signup', { name, email, password})
+        const token = response.data.token
+        const id = response.data.createdUser.id
+        login(token, id)
+        history.push('/dashboard')
+
+      } catch (error) {
+        setCredentialErrors('Erro ao criar sua conta!')
+        setTimeout(() => {
+          clearErrors()
+        }, 2500)
+      }
     }
 
 

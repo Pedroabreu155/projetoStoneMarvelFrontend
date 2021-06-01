@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react'
 
-import './Home.css'
+import './Login.css'
 import { Form, Button } from 'react-bootstrap'
 import { Link, useHistory } from 'react-router-dom'
-import { logout } from '../../services/Auth/auth'
+import { login, logout } from '../../services/Auth/auth'
 
-export default function Home(){
+import authApi from '../../services/Auth/authApi'
+
+export default function Login(){
 
   const [userEmail, setUserEmail] = useState('')
   const [userPassword, setUserPassword] = useState('')
   const [credentialsErrors, setCredentialErrors] = useState('')
 
   let history = useHistory()
-
-  function clearInputs(){
-    setUserEmail('')
-    setUserPassword('')
-  }
 
   function clearErrors(){
     setCredentialErrors('')
@@ -29,16 +26,23 @@ export default function Home(){
     const email = userEmail
     const password = userPassword
 
-    if(email !== 'pedro@email.com' || password !== 'abcd123' ){
-      setCredentialErrors('Senha ou Usuário inválido!')
+    if(!email || !password){
+      setCredentialErrors('Preencha suas credenciais!')
     } else{
-      clearErrors()
-      clearInputs()
-      history.push('/dashboard')
+      try {
+        const response = await authApi.post('/login', { email, password})
+        const token = response.data.token
+        const id = response.data.id
+        login(token, id)
+        history.push('/dashboard')
+      } catch (error) {
+        setCredentialErrors('Senha ou Usuário Inválido')
+        setTimeout(() => {
+          clearErrors()
+        }, 2500)
+      }
     }
-
-
-  }
+}
 
   useEffect(() => {
     logout()
