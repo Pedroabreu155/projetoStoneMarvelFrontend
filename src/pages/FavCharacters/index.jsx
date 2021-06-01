@@ -9,6 +9,8 @@ import { GoArrowUp } from 'react-icons/go'
 import './FavCharacters.css'
 
 import marvelApi from '../../services/marvelApi'
+import authApi from '../../services/Auth/authApi'
+import { getUserId } from '../../services/Auth/auth'
 
 export default function FavCharacters(){
 
@@ -31,9 +33,21 @@ export default function FavCharacters(){
 
   async function loadTableWithData(){
 
-    const response = await marvelApi.get('/characters')
-    const results = response.data.data.results
-    setAllCharacters(results)
+    const userID = await getUserId()
+    const response = await authApi.get(`/users/favorites-characters/${userID}`)
+    const result = await response.data.favoriteCharacters
+
+    const favoritesResults = []
+
+    await result.map(async (characterId) => {
+        const response = await marvelApi.get(`/characters/${characterId}`)
+        const result = response.data.data.results[0]
+        favoritesResults.push(result)
+      })
+
+      setTimeout(() => {
+        setAllCharacters(favoritesResults)
+      }, 1000)
   }
 
   async function loadOneCharacter(id){
@@ -55,20 +69,6 @@ export default function FavCharacters(){
     setCharacterModel(result)
 
   }
-
-  const loadMore = useCallback(async () => {
-
-    const offset = allCharacters.length
-
-    const response = await marvelApi.get('/characters', {
-      params: {
-        offset
-      }
-    })
-    const results = response.data.data.results
-    setAllCharacters([...allCharacters, ...results])
-
-  }, [allCharacters])
 
   return(
     <>
@@ -141,7 +141,6 @@ export default function FavCharacters(){
             </tbody>
           </Table>
           <a className="top" href="#top"><GoArrowUp/></a>
-          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
       <br/>
     </>

@@ -9,7 +9,7 @@ export const isAuthenticated = () => sessionStorage.getItem(TOKEN_KEY) !== null
 
 export const getToken = () => sessionStorage.getItem(TOKEN_KEY)
 
-export const getUserId = () => sessionStorage.getItem('userID')
+export const getUserId = async () => sessionStorage.getItem('userID')
 
 export const logout = () => {
   sessionStorage.removeItem(TOKEN_KEY)

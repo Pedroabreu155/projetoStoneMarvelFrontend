@@ -42,7 +42,6 @@ export default function Comics(){
   }
 
   async function loadOneComic(id){
-
     const response = await marvelApi.get(`/comics/${id}`)
     const result = response.data.data.results[0]
     setComicModel(result)

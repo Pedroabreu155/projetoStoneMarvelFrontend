@@ -5,6 +5,9 @@ import { Table, Button, Modal } from 'react-bootstrap'
 import Navbar from '../../components/Navbar'
 
 import marvelApi from '../../services/marvelApi'
+import authApi from '../../services/Auth/authApi'
+
+import { getUserId } from '../../services/Auth/auth'
 
 import { BsPlusSquare } from 'react-icons/bs'
 import { GoArrowUp } from 'react-icons/go'
@@ -31,9 +34,21 @@ export default function FavComics(){
 
   async function loadTableWithData(){
 
-    const response = await marvelApi.get('/comics')
-    const results = response.data.data.results
-    setAllComics(results)
+    const userID = await getUserId()
+    const response = await authApi.get(`/users/favorites-comics/${userID}`)
+    const result = await response.data.favoriteComics
+
+    const favoritesResults = []
+
+    await result.map(async (characterId) => {
+        const response = await marvelApi.get(`/comics/${characterId}`)
+        const result = response.data.data.results[0]
+        favoritesResults.push(result)
+      })
+
+      setTimeout(() => {
+        setAllComics(favoritesResults)
+      }, 1000)
   }
 
   async function loadOneComic(id){
@@ -55,20 +70,6 @@ export default function FavComics(){
     setComicModel(result)
 
   }
-
-  const loadMore = useCallback(async () => {
-
-    const offset = allComics.length
-
-    const response = await marvelApi.get('/comics', {
-      params: {
-        offset
-      }
-    })
-    const results = response.data.data.results
-    setAllComics([...allComics, ...results])
-
-  }, [allComics])
 
   return(
     <>
@@ -106,7 +107,7 @@ export default function FavComics(){
                   <td>{comic.pageCount === 0 ? "Sem páginas definidas" : `${comic.pageCount} páginas`}</td>
                   <td>{comic.characters.available}</td>
                   <td>
-                    <Button onClick={() => loadOneComic(comic.id)} className="mb-3" size="sm" variant="info">Expandir</Button>
+                    <Button onClick={() => loadOneComic(comic.id)} className="mb-3" size="sm" variant="info">Expandir</Button><br/>
                     <Button className="ml-2 favComicsBtn" size="sm" variant="danger">Remover das Favoritas</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
@@ -132,7 +133,6 @@ export default function FavComics(){
             </tbody>
           </Table>
           <a className="top" href="#top"><GoArrowUp/></a>
-          <div onClick={loadMore} className="loadMoreButton">Carregar Mais<BsPlusSquare/></div>
       </div>
     </>
   )

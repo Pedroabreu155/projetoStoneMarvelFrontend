@@ -36,8 +36,10 @@ export default function EditProfile(){
 
       try {
         
-        const response = await authApi.put(`/users/edit-user/${userID}`, { name, email, password})
-        history.push('/profile')
+        authApi.put(`/users/edit-user/${userID}`, { name, email, password}).then(() =>{
+          history.push('/profile')
+        }).catch(error => console.log(error))
+
 
       } catch (error) {
         setCredentialErrors('Erro ao editar sua conta!')

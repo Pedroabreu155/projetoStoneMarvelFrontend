@@ -56,7 +56,6 @@ export default function Characters(){
   }
 
   async function loadOneCharacter(id){
-
     const response = await marvelApi.get(`/characters/${id}`)
     const result = response.data.data.results[0]
     setCharacterModel(result)
