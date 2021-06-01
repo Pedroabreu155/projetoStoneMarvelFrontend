@@ -16,7 +16,7 @@ export default function Dashboard(){
   const [userEmail, setUserEmail] = useState('')
 
   async function loadUserCredential(){
-    const userID = getUserId()
+    const userID = await getUserId()
     const response = await authApi.get(`/users/${userID}`)
 
     const name = response.data.name
