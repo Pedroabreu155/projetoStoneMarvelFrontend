@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbar'
 import SearcBox from '../../components/SearchBox'
 
 import marvelApi from '../../services/marvelApi'
+import authApi from '../../services/Auth/authApi'
+import { getUserId } from '../../services/Auth/auth'
 
 import { BsPlusSquare } from 'react-icons/bs'
 import { GoArrowUp } from 'react-icons/go'
@@ -72,6 +74,24 @@ export default function Characters(){
     const result = response.data.data.results[0]
     setCharacterModel(result)
 
+  }
+
+  async function addFavorite(id){
+
+    const userID = await getUserId()
+    const response = await authApi.get(`/users/favorites-characters/${userID}`)
+    const result = await response.data.favoriteCharacters
+    let favorites = []
+    favorites = [...result]
+    favorites.push(id)
+
+    await authApi.put(`/users/edit-favorite-characters/${userID}`, {
+      'favoriteCharacters': favorites
+    })
+
+    window.alert('Favorito Adicionado!')
+
+    loadTableWithData()
   }
 
   const history = useHistory()
@@ -147,7 +167,13 @@ export default function Characters(){
                       variant="danger">
                         Ver comics
                     </Button>
-                    <Button className="tableButton mb-3 font-weight-bold" size="sm" variant="success">Adcionar aos Favoritos</Button>
+                    <Button
+                      className="tableButton mb-3 font-weight-bold" 
+                      onClick={() => addFavorite(character.id)} 
+                      size="sm" 
+                      variant="success">
+                        Adcionar aos Favoritos
+                    </Button>
                     <Button className="tableButton" onClick={() => loadOneCharacter(character.id)} size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>

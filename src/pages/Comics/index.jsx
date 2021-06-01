@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbar'
 import SearcBox from '../../components/SearchBox'
 
 import marvelApi from '../../services/marvelApi'
+import authApi from '../../services/Auth/authApi'
+import { getUserId } from '../../services/Auth/auth'
 
 import { BsPlusSquare } from 'react-icons/bs'
 import { GoArrowUp } from 'react-icons/go'
@@ -72,6 +74,24 @@ export default function Comics(){
       setAllComics(results)
     }
 
+  }
+
+  async function addFavorite(id){
+
+    const userID = await getUserId()
+    const response = await authApi.get(`/users/favorites-comics/${userID}`)
+    const result = await response.data.favoriteComics
+    let favorites = []
+    favorites = [...result]
+    favorites.push(id)
+
+    await authApi.put(`/users/edit-favorite-comics/${userID}`, {
+      'favoriteComics': favorites
+    })
+
+    window.alert('Favorito Adicionado!')
+
+    loadTableWithData()
   }
 
   const history = useHistory()
@@ -147,7 +167,7 @@ export default function Comics(){
                     variant="danger">
                       Ver Personagens
                     </Button>
-                    <Button className="mb-3 font-weight-bold" size="sm" variant="success">Adicionar as Favoritas</Button><br/>
+                    <Button onClick={() => addFavorite(comic.id)} className="mb-3 font-weight-bold" size="sm" variant="success">Adicionar as Favoritas</Button><br/>
                     <Button onClick={() => loadOneComic(comic.id)} className="mr-2" size="sm" variant="info">Expandir</Button>
                     <Modal show={showModal} onHide={handleCloseModal}>
                       <Modal.Header>
