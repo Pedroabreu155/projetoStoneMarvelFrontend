@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback} from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Link } from 'react-router-dom'
 import { Table, Button, Modal } from 'react-bootstrap'
@@ -9,7 +9,6 @@ import authApi from '../../services/Auth/authApi'
 
 import { getUserId } from '../../services/Auth/auth'
 
-import { BsPlusSquare } from 'react-icons/bs'
 import { GoArrowUp } from 'react-icons/go'
 import './FavComics.css'
 

@@ -30,12 +30,13 @@ export default function Login(){
       setCredentialErrors('Preencha suas credenciais!')
     } else{
       try {
-        const response = await authApi.post('/login', { email, password})
+        const response = await authApi.post('https://mastercomics-backend.herokuapp.com/login', { email, password})
         const token = response.data.token
         const id = response.data.id
         login(token, id)
         history.push('/dashboard')
       } catch (error) {
+        console.log(error)
         setCredentialErrors('Senha ou Usuário Inválido')
         setTimeout(() => {
           clearErrors()
