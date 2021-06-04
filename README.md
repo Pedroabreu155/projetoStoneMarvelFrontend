@@ -25,7 +25,7 @@ Frameworks e Bibliotecas usadas:
 Para utilizá-lo basta baixar a pasta .zip ou clonar o repositório em sua máquina, após isso siga os passos:
 
  - Dentro da pasta :
-   - Execute o comando __npm install__ ou __yarn__, depois rode o comando __npm start__ ou __yarn__
+   - Execute o comando __npm install__ ou __yarn__, depois rode o comando __npm start__ ou __yarn start__
 
 
 #### Qualquer dúvida me chame nas redes sociais, happy hacking  :top: ####
