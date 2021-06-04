@@ -28,10 +28,10 @@ export default function SignUp(){
       setCredentialErrors('Preencha todos os campos!')
     } else{
         authApi.post('/reset-password', { email }).then(() => {
-          history.push('/login')
+          history.push('/')
         }).catch(error => {
           console.log(error)
-          setCredentialErrors('Erro ao enviar o email!')
+          setCredentialErrors('Usuário não encontrado!')
         })
         setTimeout(() => {
           clearErrors()
