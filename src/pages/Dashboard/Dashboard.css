@@ -1,3 +1,6 @@
+.dashboardTitle{
+  text-align: center;
+}
 
 .dashboard-wrapper{
   display: flex;

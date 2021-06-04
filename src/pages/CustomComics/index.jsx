@@ -102,7 +102,7 @@ export default function CustomComics(){
       <Navbar/>
       <div className="container manage-products">
           <br/>
-          <h1>Lista de HQs</h1>
+          <h1>Lista de Comics</h1>
           <br/>
           <div className="page-header">
             <Link to="/characters"><Button className="add-productBtn" variant="warning">Voltar para Personagens</Button></Link>
@@ -141,7 +141,7 @@ export default function CustomComics(){
                       <Modal.Body>
                         <img className="modal-image" src={`${comicModel.thumbnail.path}.${comicModel.thumbnail.extension}`}  alt="modalImage"/>
                         <h2 className="modalFirstText">Personagens: {comicModel.characters.available === 0 ? "Sem registros!" : comicModel.characters.available}</h2>
-                        <h2>{comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `$Preço de Lançamento: ${comicModel.prices[0].price}`}</h2>
+                        <h2>{comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `Preço de Lançamento: $ ${comicModel.prices[0].price}`}</h2>
                       </Modal.Body>
 
                       <Modal.Footer>

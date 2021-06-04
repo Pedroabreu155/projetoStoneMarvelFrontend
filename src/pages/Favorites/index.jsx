@@ -11,6 +11,8 @@ export default function Favorites(){
   return(
     <>
       <Navbar/>
+      <br/>
+      <div className="container favoritesTitle"><h1>Meus Favoritos</h1></div>
       <Container className="dashboard-wrapper">
         <Link to="/favcomics" className="card-link">
           <Card className="dashboard-card" style={{ width: '20rem', height: '20rem' }}>

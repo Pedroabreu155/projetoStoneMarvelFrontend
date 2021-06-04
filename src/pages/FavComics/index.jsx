@@ -94,7 +94,7 @@ export default function FavComics(){
       <Navbar/>
       <div className="container manage-products">
           <br/>
-          <h1>HQs Preferidas</h1>
+          <h1>Comics Preferidas</h1>
           <br/>
           <div className="page-header">
             <Link to="/favorites"><Button className="add-productBtn" variant="warning">Voltar para Meus Favoritos</Button></Link>
@@ -134,7 +134,7 @@ export default function FavComics(){
                       <Modal.Body>
                         <img className="modal-image" src={`${comicModel.thumbnail.path}.${comicModel.thumbnail.extension}`} alt="ComicImage"/>
                         <h2>Personagens: {comicModel.characters.available === 0 ? "Sem registros!" : comicModel.characters.available}</h2>
-                        <h2>{comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `$Preço de Lançamento: ${comicModel.prices[0].price}`}</h2>
+                        <h2>{comicModel.prices[0].price === 0 ? "Sem preço registrado!" : `Preço de Lançamento: $ ${comicModel.prices[0].price}`}</h2>
                       </Modal.Body>
 
                       <Modal.Footer>

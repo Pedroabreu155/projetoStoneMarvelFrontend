@@ -12,6 +12,8 @@ export default function Dashboard(){
   return(
     <>
       <Navbar/>
+      <br/>
+      <div className="container dashboardTitle"><h1>Dashboard</h1></div>
       <Container className="dashboard-wrapper">
         <Link to="/comics" className="card-link">
           <Card className="dashboard-card" style={{ width: '20rem', height: '20rem' }}>

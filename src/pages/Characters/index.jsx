@@ -126,7 +126,7 @@ export default function Characters(){
     <>
       <div id="top"></div>
       <Navbar/>
-      <div className="container manage-products">
+      <div className="container">
           <br/>
           <h1>Lista de Personagens</h1>
           <br/>
