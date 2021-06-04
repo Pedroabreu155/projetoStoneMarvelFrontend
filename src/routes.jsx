@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
+import ResetPassword from './pages/ResetPassword'
 import Dashboard from './pages/Dashboard'
 import Characters from './pages/Characters'
 import Comics from './pages/Comics'
@@ -38,6 +39,7 @@ export default function Routes() {
         <Switch>
           <Route path="/" exact component={Login}/>
           <Route path="/signup" exact component={SignUp}/>
+          <Route path="/reset-password" exact component={ResetPassword}/>
           <PrivateRoute path="/dashboard" exact component={Dashboard}/>
           <PrivateRoute path="/characters" exact component={Characters}/>
           <PrivateRoute path="/comics" exact component={Comics}/>

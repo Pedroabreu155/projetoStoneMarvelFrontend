@@ -78,6 +78,7 @@ export default function Login(){
           <div className="btn-form-div">
             <Button type="submit" className="login-btn" variant="dark">Login</Button>
           </div>
+          <Link className="forgotPassword" to="/reset-password"><p>Esqueci minha senha!</p></Link>
           <div className="signupLinkWrapper">
             <Link className="signupLink" to="/signup">Criar conta grátis</Link>
           </div>

@@ -12,7 +12,7 @@
 .btn-form-div{
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .login-btn{
@@ -52,4 +52,16 @@
 
 .error{
   color: red;
+}
+
+.forgotPassword{
+  text-decoration: none;
+  text-align: center;
+  color: rgb(141, 21, 21);
+  font-weight: bold;
+}
+
+.forgotPassword:hover{
+  color: rgb(141, 21, 21);
+  text-decoration: underline;
 }
